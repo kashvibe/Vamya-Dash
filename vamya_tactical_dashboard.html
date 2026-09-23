@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAMYA - The Sovereign Master Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tactical-black': '#0B0C10',
+                        'slate-steel': '#1F2833',
+                        'titanium-grey': '#C5C6C7',
+                        'cyan-accent': '#66FCF1',
+                        'cyan-dark': '#45A29E',
+                        'gold-accent': '#D4AF37',
+                        'danger-red': '#EF4444',
+                        'safe-green': '#10B981'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(rgba(31, 40, 51, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 40, 51, 0.4) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                linear-gradient(rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0B0C10; }
+        ::-webkit-scrollbar-thumb { background: #45A29E; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #66FCF1; }
+
+        .bento-card {
+            background-color: rgba(31, 40, 51, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(69, 162, 158, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            border-color: #66FCF1;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+        }
+        
+        .tech-border { position: relative; }
+        .tech-border::before, .tech-border::after {
+            content: ''; position: absolute; width: 12px; height: 12px;
+            pointer-events: none;
+        }
+        .tech-border::before {
+            top: 0; left: 0;
+            border-top: 2px solid #66FCF1; border-left: 2px solid #66FCF1;
+        }
+        .tech-border::after {
+            bottom: 0; right: 0;
+            border-bottom: 2px solid #66FCF1; border-right: 2px solid #66FCF1;
+        }
+
+        .data-table th {
+            background-color: rgba(11, 12, 16, 0.95);
+            color: #66FCF1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .data-table td { border-top: 1px solid rgba(69, 162, 158, 0.2); }
+        .data-table tr:hover { background-color: rgba(69, 162, 158, 0.05); }
+
+        .tab-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-btn.active {
+            color: #66FCF1;
+            border-bottom-color: #66FCF1;
+            background: linear-gradient(to top, rgba(102, 252, 241, 0.1), transparent);
+        }
+        .tab-btn::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+            background: #66FCF1; transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .tab-btn:hover::after { width: 100%; }
+
+        /* Accordion custom styling */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center">
+
+    <div class="w-full max-w-7xl space-y-8">
+        
+        <header class="bento-card rounded-xl p-6 md:p-8 tech-border relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#66FCF1" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8 justify-between">
+                <div class="flex-1 space-y-4 relative z-10">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase font-mono mb-1">
+                            VAMYA <span class="text-cyan-dark">|</span> <span class="text-cyan-accent font-light">Sovereign Blueprint</span>
+                        </h1>
+                        <h2 class="text-lg md:text-xl font-mono text-gold-accent">2028 Toyota LandCruiser Prado 250 Series Altitude Trim</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="space-y-2 border-l-2 border-slate-steel pl-4">
+                            <p><strong class="text-white">Platform Specs:</strong> Onyx Night Exterior | Black Leather Interior | 2.8L 1GD-FTV Turbo-Diesel V-Active 48V MHEV | 8-Speed L580F Direct Shift Automatic</p>
+                            <p><strong class="text-white">Legacy:</strong> Replacing 'Avani' (2018 Red Hyundai Elantra).</p>
+                            <p><strong class="text-white">Factory Accessories:</strong> Tinted Bonnet Protector, Off-Road Towing Kit & Heavy-Duty Wiring Harness.</p>
+                        </div>
+                        <div class="space-y-2 border-l-2 border-cyan-dark pl-4">
+                            <p class="text-cyan-accent italic text-xs leading-relaxed">
+                                "The absolute best part at the cheapest possible price. Functional mods only that perfectly match Vamya's stealth aesthetic. Never pay for marketing, brand names, or unnecessary luxury. Pay only for unyielding, physics-destroying functionality, safety, and longevity."
+                            </p>
+                            <p class="text-xs text-gold-accent mt-2 leading-relaxed">
+                                <strong class="text-white">Spiritual Archetype:</strong> "The Left-Hand Shield of Grace" / "The Beautifully Fierce Sovereign." Honors Goddess Lakshmi in her highest cosmic frequency—channeling the nocturnal alertness of Her Owl (Uluka), the unyielding defensive fury of Narasimhi, the explosive strength of Hanuman, and the aerial precision of Garuda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="kpi-dashboard" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="bento-card rounded-lg p-5 flex flex-col justify-center items-center text-center border-t-2 border-gold-accent">
+                <div class="text-[10px] text-cyan-dark uppercase tracking-widest font-mono mb-2">Total Build Investment</div>
+                <div class="text-2xl font-black text-gold-accent">$139,896<span class="text-sm font-normal text-titanium-grey">AUD</span></div>
+                <div class="text-xs text-titanium-grey mt-1">$133,081 Parts + $6,815 Labor</div>
+            </div>
+            
+            <div class="bento-card rounded-lg p-5 flex flex-col justify-center items-center text-center border-t-2 border-cyan-accent">
+                <div class="text-[10px] text-cyan-dark uppercase tracking-widest font-mono mb-2">Onboard Fuel Volume</div>
+                <div class="text-2xl font-black text-white">155<span class="text-sm font-normal text-cyan-accent">L</span></div>
+                <div class="text-xs text-titanium-grey mt-1">80L Main + 75L Brown Davis</div>
+            </div>
+            
+            <div class="bento-card rounded-lg p-5 flex flex-col justify-center items-center text-center border-t-2 border-cyan-accent">
+                <div class="text-[10px] text-cyan-dark uppercase tracking-widest font-mono mb-2">Unrefueled Radius</div>
+                <div class="text-2xl font-black text-white">1,300+<span class="text-sm font-normal text-cyan-accent">km</span></div>
+                <div class="text-xs text-titanium-grey mt-1">Expedition Range</div>
+            </div>
+            
+            <div class="bento-card rounded-lg p-5 flex flex-col justify-center items-center text-center border-t-2 border-cyan-accent">
+                <div class="text-[10px] text-cyan-dark uppercase tracking-widest font-mono mb-2">Certified Payload/GVM</div>
+                <div class="text-2xl font-black text-white">3,900<span class="text-sm font-normal text-cyan-accent">kg</span></div>
+                <div class="text-xs text-titanium-grey mt-1">6,800kg GCM (+800kg Headroom)</div>
+            </div>
+            
+            <div class="bento-card rounded-lg p-5 flex flex-col justify-center items-center text-center border-t-2 border-cyan-accent">
+                <div class="text-[10px] text-cyan-dark uppercase tracking-widest font-mono mb-2">Auxiliary 12V Grid</div>
+                <div class="text-2xl font-black text-white">120<span class="text-sm font-normal text-cyan-accent">Ah</span></div>
+                <div class="text-xs text-titanium-grey mt-1">LiFePO4 IP67 + 50A BCDC</div>
+            </div>
+        </section>
+
+        <nav class="flex overflow-x-auto border-b border-slate-steel no-scrollbar gap-2 pb-px" aria-label="Tabs">
+            <button onclick="switchTab('pillars')" id="tab-pillars" class="tab-btn active shrink-0 px-4 py-3 text-sm font-mono uppercase tracking-wider text-titanium-grey hover:text-white border-b-2 border-transparent transition-colors">
+                12 Eng Pillars
+            </button>
+            <button onclick="switchTab('ledger')" id="tab-ledger" class="tab-btn shrink-0 px-4 py-3 text-sm font-mono uppercase tracking-wider text-titanium-grey hover:text-white border-b-2 border-transparent transition-colors">
+                Financial Ledger
+            </button>
+            <button onclick="switchTab('maintenance')" id="tab-maintenance" class="tab-btn shrink-0 px-4 py-3 text-sm font-mono uppercase tracking-wider text-titanium-grey hover:text-white border-b-2 border-transparent transition-colors">
+                Maintenance & Fluids
+            </button>
+            <button onclick="switchTab('longevity')" id="tab-longevity" class="tab-btn shrink-0 px-4 py-3 text-sm font-mono uppercase tracking-wider text-titanium-grey hover:text-white border-b-2 border-transparent transition-colors">
+                Longevity Matrix
+            </button>
+            <button onclick="switchTab('boundaries')" id="tab-boundaries" class="tab-btn shrink-0 px-4 py-3 text-sm font-mono uppercase tracking-wider text-titanium-grey hover:text-white border-b-2 border-transparent transition-colors">
+                Boundaries (CAN/CANNOT)
+            </button>
+        </nav>
+
+        <div id="content-pillars" class="tab-content block animate-[fadeIn_0.5s_ease-in-out]">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <!-- Node 1 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">01</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Drivetrain Core</h3>
+                    <p class="text-xs text-titanium-grey leading-relaxed">
+                        <strong class="text-cyan-accent">Spec:</strong> 2.8L 1GD-FTV Turbo-Diesel MHEV + L580F 8-Speed Automatic.<br>
+                        <strong class="text-cyan-accent">Tech:</strong> RAVENOL WS ATF active thermal management.
+                    </p>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">02</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Suspension & Geometry</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Kit:</strong> Lovells 3900kg Platinum GVM Kit ($6,815) <span class="text-[10px] font-mono text-cyan-dark">TOYKIT089-GVM-PLAT-LP39</span></li>
+                        <li><strong class="text-cyan-accent">Shocks:</strong> 46mm Remote Reservoir</li>
+                        <li><strong class="text-cyan-accent">UCAs:</strong> Lovells Heavy Duty ($1,100) <span class="text-[10px] font-mono text-cyan-dark">LOVUCA-300</span></li>
+                        <li><strong class="text-cyan-accent">Diff:</strong> Superior Eng 30mm Drop ($450) <span class="text-[10px] font-mono text-cyan-dark">DDRP-B-PRD11-A</span></li>
+                        <li class="pt-1 text-white border-t border-slate-steel border-opacity-50 mt-1">Restores factory CV angles.</li>
+                    </ul>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">03</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Kinetic Shield & Armor</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Bar:</strong> TJM Venturer Hoopless Steel ($3,450) <span class="text-[10px] font-mono text-cyan-dark">070ST24N88P</span></li>
+                        <li><strong class="text-cyan-accent">Winch:</strong> Runva 11XP Premium ($1,700) (Dyneema + gearbox ratchet brake)</li>
+                        <li><strong class="text-cyan-accent">Armor:</strong> BEI House 4mm 2B Stainless Steel Bash Plates ($1,500)</li>
+                    </ul>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">04</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Autonomous 12V Power Grid</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Batt:</strong> Invicta Xero 120Ah LiFePO4 IP67 ($1,595) <span class="text-[10px] font-mono text-cyan-dark">SNLX12V120BT</span></li>
+                        <li><strong class="text-cyan-accent">DC-DC:</strong> REDARC BCDC Alpha 50A ($1,130) <span class="text-[10px] font-mono text-cyan-dark">BCDC12050B</span></li>
+                        <li><strong class="text-cyan-accent">Tray:</strong> TLR Rear Quarter Inner Guard ($545) <span class="text-[10px] font-mono text-cyan-dark">TLR792101</span></li>
+                        <li><strong class="text-cyan-accent">Wire:</strong> Harness ($850)</li>
+                        <li class="pt-1 text-white border-t border-slate-steel border-opacity-50 mt-1">Includes 15-min flat-start recovery boost.</li>
+                    </ul>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">05</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Contact Patch</h3>
+                    <p class="text-xs text-titanium-grey leading-relaxed">
+                        <strong class="text-cyan-accent">Tires:</strong> Toyo Open Country R/T LT285/65R18 (10-Ply E-Rated 125/122Q)<br>
+                        <strong class="text-cyan-accent">Cost:</strong> $2,400 AUD for 5.<br>
+                        <strong class="text-cyan-accent">Wheels:</strong> Factory 18" Altitude matte grey alloy wheels.
+                    </p>
+                </div>
+
+                <!-- Node 6 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">06</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Induction & Engine Defense</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Snorkel:</strong> Safari ARMAX High-Flow ($1,215) <span class="text-[10px] font-mono text-cyan-dark">SS191HP</span> (+30% mass airflow)</li>
+                        <li><strong class="text-cyan-accent">Filters:</strong> Direction-Plus Pre-Filter & MANN+HUMMEL ProVent 200 Combo ($1,200) <span class="text-[10px] font-mono text-cyan-dark">FMPV668DPC</span> (98% oil separation)</li>
+                    </ul>
+                </div>
+
+                <!-- Node 7 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">07</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Desert Endurance & Range</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Tank:</strong> Brown Davis 75L Sub-Tank ($1,967) <span class="text-[10px] font-mono text-cyan-dark">TP250R1</span> (155L total)</li>
+                        <li><strong class="text-cyan-accent">Fridge:</strong> SnoMaster Classic CL60 60L Stainless ($1,550)</li>
+                        <li><strong class="text-cyan-accent">Storage:</strong> Drifta Stockton Modular Drawers with Teflon slides ($2,145)</li>
+                    </ul>
+                </div>
+
+                <!-- Node 8 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">08</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Roof Platform & Canopy</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Rack:</strong> Rhino Pioneer 6 (2100x1240mm) <span class="text-[10px] font-mono text-cyan-dark">62107</span> + RTPB3 Backbone <span class="text-[10px] font-mono text-cyan-dark">JC-02124</span> ($2,050)</li>
+                        <li><strong class="text-cyan-accent">Solar:</strong> REDARC 180W Panel ($630) <span class="text-[10px] font-mono text-cyan-dark">SMSP1180</span></li>
+                        <li><strong class="text-cyan-accent">Awning:</strong> The Bush Company 270 XT Mk2 ($2,550)</li>
+                    </ul>
+                </div>
+
+                <!-- Node 9 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">09</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Command Center</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Comms:</strong> GME XRS-370C Hideaway UHF CB Radio ($850)</li>
+                        <li><strong class="text-cyan-accent">Nav:</strong> Hema 4x4 / ExplorOz Navigation via Apple CarPlay on factory 12.3" display.</li>
+                    </ul>
+                </div>
+
+                <!-- Node 10 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group border-gold-accent border-opacity-30">
+                    <div class="absolute top-0 right-0 bg-tactical-black border-b border-l border-gold-accent text-gold-accent font-mono text-xs px-2 py-1 rounded-bl-lg">10</div>
+                    <h3 class="text-gold-accent font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Mythological Integration</h3>
+                    <p class="text-xs text-titanium-grey leading-relaxed">
+                        Full alignment with <strong class="text-white">Lakshmi</strong>, <strong class="text-white">Uluka</strong> (vigilance), <strong class="text-white">Narasimhi</strong> (defense), <strong class="text-white">Hanuman</strong> (strength), and <strong class="text-white">Garuda</strong> (speed).
+                    </p>
+                </div>
+
+                <!-- Node 11 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">11</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Visual Identity</h3>
+                    <p class="text-xs text-titanium-grey leading-relaxed">
+                        Full Onyx Night metallic, matte black barwork, raw 2B stainless steel armor, <strong class="text-red-400">zero</strong> chrome, <strong class="text-red-400">zero</strong> brand-tax badges.
+                    </p>
+                </div>
+
+                <!-- Node 12 -->
+                <div class="bento-card p-5 rounded-lg relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-slate-steel text-cyan-accent font-mono text-xs px-2 py-1 rounded-bl-lg">12</div>
+                    <h3 class="text-white font-bold mb-3 border-b border-slate-steel pb-2 text-sm uppercase tracking-widest">Global Transit</h3>
+                    <ul class="text-xs text-titanium-grey space-y-1.5">
+                        <li><strong class="text-cyan-accent">Admin:</strong> Carnet de Passages en Douane (CPD) passport compliance.</li>
+                        <li><strong class="text-cyan-accent">Range:</strong> 1,300+ km unrefueled.</li>
+                        <li><strong class="text-cyan-accent">Mass:</strong> 3,900 kg legal GVM payload headroom.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-ledger" class="tab-content hidden animate-[fadeIn_0.5s_ease-in-out]">
+            <div class="bento-card rounded-xl overflow-hidden">
+                <div class="overflow-x-auto max-h-[70vh]">
+                    <table class="w-full text-left text-xs whitespace-nowrap data-table">
+                        <thead>
+                            <tr>
+                                <th class="p-3 pl-4">Category</th>
+                                <th class="p-3">Component / SKU</th>
+                                <th class="p-3 text-right text-cyan-dark">Parts Cost (AUD)</th>
+                                <th class="p-3 text-right text-cyan-dark">Labor Cost (AUD)</th>
+                                <th class="p-3 pr-4 text-right text-gold-accent font-bold">Total Installed (AUD)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-titanium-grey font-mono divide-y divide-slate-steel/50">
+                            <tr><td class="p-3 pl-4 font-sans text-white">Base Vehicle</td><td>2028 Prado 250 Altitude Driveaway</td><td class="text-right">$99,634.00</td><td class="text-right">Included</td><td class="text-right pr-4 font-bold text-white">$99,634.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Factory Options</td><td>Tinted Bonnet Protector & Tow Kit</td><td class="text-right">$850.00</td><td class="text-right">$150.00</td><td class="text-right pr-4 text-white">$1,000.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Suspension & GVM</td><td>Lovells 3900kg Platinum GVM (TOYKIT089-GVM-PLAT-LP39)</td><td class="text-right">$5,615.00</td><td class="text-right">$1,200.00</td><td class="text-right pr-4 text-white">$6,815.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">UCAs</td><td>Lovells Heavy Duty Upper Control Arms (LOVUCA-300)</td><td class="text-right">$850.00</td><td class="text-right">$250.00</td><td class="text-right pr-4 text-white">$1,100.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Diff Drop</td><td>Superior Engineering 30mm Diff Drop (DDRP-B-PRD11-A)</td><td class="text-right">$285.00</td><td class="text-right">$165.00</td><td class="text-right pr-4 text-white">$450.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Front Bar</td><td>TJM Venturer Matt Black Steel Bar (070ST24N88P)</td><td class="text-right">$2,850.00</td><td class="text-right">$600.00</td><td class="text-right pr-4 text-white">$3,450.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Winch</td><td>Runva 11XP Premium 12V Winch (11XPPREMIUM12VD)</td><td class="text-right">$1,350.00</td><td class="text-right">$350.00</td><td class="text-right pr-4 text-white">$1,700.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Underbody Armor</td><td>BEI House 4mm Stainless Bash Plates (BEI-LC250-BP)</td><td class="text-right">$1,250.00</td><td class="text-right">$250.00</td><td class="text-right pr-4 text-white">$1,500.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Auxiliary Battery</td><td>Invicta Xero 120Ah LiFePO4 IP67 (SNLX12V120BT)</td><td class="text-right">$1,495.00</td><td class="text-right">$100.00</td><td class="text-right pr-4 text-white">$1,595.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">DC-DC Charger</td><td>REDARC BCDC Alpha 50A Dual Input (BCDC12050B)</td><td class="text-right">$880.00</td><td class="text-right">$250.00</td><td class="text-right pr-4 text-white">$1,130.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Battery Tray</td><td>TLR Inner Guard Battery Tray (TLR792101)</td><td class="text-right">$345.00</td><td class="text-right">$200.00</td><td class="text-right pr-4 text-white">$545.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">12V Wiring</td><td>Heavy-Duty Harness, Fuses, Anderson Plugs</td><td class="text-right">$450.00</td><td class="text-right">$400.00</td><td class="text-right pr-4 text-white">$850.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Tires</td><td>Toyo Open Country R/T LT285/65R18 (5x Tires)</td><td class="text-right">$2,250.00</td><td class="text-right">$150.00</td><td class="text-right pr-4 text-white">$2,400.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Snorkel</td><td>Safari ARMAX High-Flow Snorkel (SS191HP)</td><td class="text-right">$865.00</td><td class="text-right">$350.00</td><td class="text-right pr-4 text-white">$1,215.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Pre-Filter/Catch Can</td><td>Direction-Plus + ProVent 200 Combo (FMPV668DPC)</td><td class="text-right">$950.00</td><td class="text-right">$250.00</td><td class="text-right pr-4 text-white">$1,200.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Sub Fuel Tank</td><td>Brown Davis 75L Replacement Sub-Tank (TP250R1)</td><td class="text-right">$1,467.00</td><td class="text-right">$500.00</td><td class="text-right pr-4 text-white">$1,967.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Fridge/Freezer</td><td>SnoMaster Classic CL60 60L Stainless Steel (SMDZ-CL60)</td><td class="text-right">$1,550.00</td><td class="text-right">Plug & Play</td><td class="text-right pr-4 text-white">$1,550.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Storage Drawers</td><td>Drifta Stockton Modular Drawers (Wagon #2)</td><td class="text-right">$1,945.00</td><td class="text-right">$200.00</td><td class="text-right pr-4 text-white">$2,145.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Roof Platform</td><td>Rhino-Rack Pioneer 6 + Backbone Kit (JC-02124)</td><td class="text-right">$1,750.00</td><td class="text-right">$300.00</td><td class="text-right pr-4 text-white">$2,050.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Solar Panel</td><td>REDARC 180W Monocrystalline Panel (SMSP1180)</td><td class="text-right">$480.00</td><td class="text-right">$150.00</td><td class="text-right pr-4 text-white">$630.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white">Awning</td><td>The Bush Company 270 XT Awning Mk2 (270-XT-MK2)</td><td class="text-right">$2,350.00</td><td class="text-right">$200.00</td><td class="text-right pr-4 text-white">$2,550.00</td></tr>
+                            <tr><td class="p-3 pl-4 font-sans text-white border-b-2 border-cyan-dark">Comms Radio</td><td class="border-b-2 border-cyan-dark">GME XRS-370C Hideaway UHF CB Radio (XRS-370C)</td><td class="text-right border-b-2 border-cyan-dark">$650.00</td><td class="text-right border-b-2 border-cyan-dark">$200.00</td><td class="text-right pr-4 text-white border-b-2 border-cyan-dark">$850.00</td></tr>
+                        </tbody>
+                        <tfoot class="bg-tactical-black border-t-2 border-gold-accent sticky bottom-0 z-10">
+                            <tr>
+                                <th class="p-3 pl-4 font-sans text-gold-accent uppercase tracking-widest text-sm">LEDGER TOTALS</th>
+                                <th class="p-3 font-mono text-white text-xs">ALL COMPONENTS COMBINED</th>
+                                <th class="p-3 text-right text-cyan-accent font-mono text-sm">$133,081.00</th>
+                                <th class="p-3 text-right text-cyan-accent font-mono text-sm">$6,815.00</th>
+                                <th class="p-3 pr-4 text-right text-gold-accent font-bold font-mono text-lg">$139,896.00</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-maintenance" class="tab-content hidden animate-[fadeIn_0.5s_ease-in-out]">
+            <div class="bento-card rounded-xl p-6 overflow-x-auto tech-border">
+                <h3 class="text-xl font-mono text-cyan-accent uppercase tracking-widest mb-6">Severe Maintenance Schedule & Fluid Capacities</h3>
+                <table class="w-full text-left text-sm whitespace-nowrap data-table">
+                    <thead>
+                        <tr>
+                            <th class="p-3 pl-4 rounded-tl-lg">Subsystem / Fluid Service</th>
+                            <th class="p-3">Interval (Severe Duty)</th>
+                            <th class="p-3">Fluid Spec / Part</th>
+                            <th class="p-3 pr-4 rounded-tr-lg">System Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-titanium-grey divide-y divide-slate-steel/50">
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Engine Oil & Filter <span class="text-xs font-mono text-cyan-dark block">(1GD-FTV 2.8L)</span></td>
+                            <td class="p-3"><span class="text-danger-red font-mono">Every 5,000 km</span> / 6 months</td>
+                            <td class="p-3 font-mono text-xs">RAVENOL / Toyota Genuine 0W-20 / 5W-30 C2/C3</td>
+                            <td class="p-3 pr-4 font-mono text-cyan-accent">7.5 Liters</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Transmission Fluid <span class="text-xs font-mono text-cyan-dark block">(L580F 8-Speed Auto)</span></td>
+                            <td class="p-3"><span class="text-gold-accent font-mono">Every 40,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">RAVENOL ATF T-WS / Toyota Genuine WS</td>
+                            <td class="p-3 pr-4 font-mono text-cyan-accent">10.2 Liters</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Transfer Case Fluid</td>
+                            <td class="p-3"><span class="text-gold-accent font-mono">Every 20,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">RAVENOL 75W / Toyota LF 75W</td>
+                            <td class="p-3 pr-4 font-mono text-cyan-accent">1.4 Liters</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Front Differential Fluid</td>
+                            <td class="p-3"><span class="text-gold-accent font-mono">Every 20,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">RAVENOL EPX 75W-85 GL-5</td>
+                            <td class="p-3 pr-4 font-mono text-cyan-accent">1.55 Liters</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Rear Differential Fluid</td>
+                            <td class="p-3"><span class="text-gold-accent font-mono">Every 20,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">RAVENOL EPX 75W-85 GL-5</td>
+                            <td class="p-3 pr-4 font-mono text-cyan-accent">2.7 Liters</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Fuel Pre-Filter Element</td>
+                            <td class="p-3">Inspect <span class="text-cyan-accent">10,000 km</span> / Replace <span class="text-danger-red">20,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">Direction-Plus 30-micron element</td>
+                            <td class="p-3 pr-4 text-titanium-grey">-</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Catch Can Filter Element</td>
+                            <td class="p-3">Inspect <span class="text-cyan-accent">10,000 km</span> / Replace <span class="text-gold-accent">40,000 km</span></td>
+                            <td class="p-3 font-mono text-xs">MANN+HUMMEL ProVent 200 element</td>
+                            <td class="p-3 pr-4 text-titanium-grey">-</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white border-b-0">Brake System Fluid</td>
+                            <td class="p-3 border-b-0"><span class="text-gold-accent font-mono">Every 20,000 km</span> / 24 months</td>
+                            <td class="p-3 font-mono text-xs border-b-0">Heavy-Duty DOT 4 Synthetic</td>
+                            <td class="p-3 pr-4 text-titanium-grey border-b-0">Full Flush</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="content-longevity" class="tab-content hidden animate-[fadeIn_0.5s_ease-in-out]">
+            <div class="bento-card rounded-xl p-6 overflow-x-auto tech-border">
+                <h3 class="text-xl font-mono text-cyan-accent uppercase tracking-widest mb-6">Component Longevity Matrix</h3>
+                <table class="w-full text-left text-sm whitespace-nowrap data-table">
+                    <thead>
+                        <tr>
+                            <th class="p-3 pl-4 rounded-tl-lg">Subsystem</th>
+                            <th class="p-3 text-danger-red">Factory Lifespan (Risk)</th>
+                            <th class="p-3 pr-4 text-safe-green rounded-tr-lg">Upgraded Vamya Component Lifespan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-titanium-grey divide-y divide-slate-steel/50">
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Shock Absorbers</td>
+                            <td class="p-3 font-mono">40,000 km <span class="text-xs text-titanium-grey">(Factory Twin-Tube)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold">150,000+ km <span class="text-xs text-titanium-grey font-sans font-normal">(Lovells 46mm Remote Reservoir, rebuildable)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Upper Control Arm Joints</td>
+                            <td class="p-3 font-mono">60,000 km <span class="text-xs text-titanium-grey">(Rubber Bushings)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold">120,000+ km <span class="text-xs text-titanium-grey font-sans font-normal">(Lovells HD UCAs, greasable zerks)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Fuel Common Rail / Injectors</td>
+                            <td class="p-3 font-mono">100,000 km <span class="text-xs text-titanium-grey">(Unprotected)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold">250,000+ km <span class="text-xs text-titanium-grey font-sans font-normal">(Pre-Filtered Direction-Plus)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Intake Manifold Carbon Sludge</td>
+                            <td class="p-3 font-mono">80,000 km <span class="text-xs text-titanium-grey">(Clog Threshold)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold">300,000+ km Clean <span class="text-xs text-titanium-grey font-sans font-normal">(ProVent 200 Protected)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white">Auxiliary Power Cell</td>
+                            <td class="p-3 font-mono">3 Years <span class="text-xs text-titanium-grey">(Factory AGM)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold">10+ Years / 4,000+ Cycles <span class="text-xs text-titanium-grey font-sans font-normal">(Invicta Xero LiFePO4)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 pl-4 font-semibold text-white border-b-0">Winch Synthetic Line</td>
+                            <td class="p-3 font-mono border-b-0">2 Years <span class="text-xs text-titanium-grey">(Melt Risk - Drum Brake)</span></td>
+                            <td class="p-3 pr-4 font-mono text-safe-green font-bold border-b-0">8+ Years <span class="text-xs text-titanium-grey font-sans font-normal">(Runva Internal Gearbox Brake Protected)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="content-boundaries" class="tab-content hidden animate-[fadeIn_0.5s_ease-in-out]">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- CAN DO Panel -->
+                <details class="bento-card rounded-xl group" open>
+                    <summary class="p-6 cursor-pointer flex justify-between items-center border-b border-transparent group-open:border-slate-steel transition-colors">
+                        <h3 class="text-lg font-mono text-safe-green uppercase tracking-widest flex items-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            What Vamya Can Do
+                        </h3>
+                        <svg class="w-5 h-5 text-titanium-grey transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-6 pt-2 space-y-4 text-sm text-titanium-grey">
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Sustain continuous <strong class="text-white">1,300+ km</strong> unrefueled expedition radius via <span class="font-mono text-cyan-accent">155L</span> onboard fuel capacity.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Legally carry <strong class="text-white">+800 kg</strong> payload headroom at certified <span class="font-mono text-cyan-accent">3,900 kg GVM / 6,800 kg GCM</span> limits.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Operate continuously in <strong class="text-white">50°C</strong> ambient heat without shock absorber oil aeration or transmission thermal overload.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Execute sustained winching under full <strong class="text-white">11,000 lb</strong> load without melting synthetic rope.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Jump-start starter battery using REDARC BCDC Alpha <strong class="text-white">15-minute</strong> reverse boost recovery function.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-safe-green mt-1.5 shrink-0"></div><p>Slide over sharp granite obstacles without gouging or rusting via <strong class="text-white">4mm 2B stainless steel</strong> underbody armor.</p></div>
+                    </div>
+                </details>
+
+                <!-- CANNOT DO Panel -->
+                <details class="bento-card rounded-xl group border-l-4 border-l-danger-red" open>
+                    <summary class="p-6 cursor-pointer flex justify-between items-center border-b border-transparent group-open:border-slate-steel transition-colors">
+                        <h3 class="text-lg font-mono text-danger-red uppercase tracking-widest flex items-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            What Vamya Cannot Do
+                        </h3>
+                        <svg class="w-5 h-5 text-titanium-grey transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-6 pt-2 space-y-4 text-sm text-titanium-grey">
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-danger-red mt-1.5 shrink-0"></div><p>Exceed <strong class="text-white">3,900 kg</strong> gross vehicle mass without voiding Lovells engineering compliance certification.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-danger-red mt-1.5 shrink-0"></div><p>Ford water depths exceeding <strong class="text-white">800mm</strong> without manually verifying high-mount differential and transmission breather lines.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-danger-red mt-1.5 shrink-0"></div><p>Operate LiFePO4 auxiliary battery above <strong class="text-white">65°C</strong> ambient without triggering internal BMS thermal protection.</p></div>
+                        <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-danger-red mt-1.5 shrink-0"></div><p>Bypass Carnet de Passages en Douane (CPD) customs passport documentation in non-signatory international nations.</p></div>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+
+        <footer class="text-center text-[10px] font-mono text-cyan-dark opacity-50 uppercase tracking-widest pt-8 pb-4">
+            Architected by Master Overland Engineering Command // Document Class: ONE-OF-ONE // Framework Active
+        </footer>
+
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Get all tab buttons and content sections
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            // Remove 'active' class from all buttons and add 'text-titanium-grey'
+            tabs.forEach(tab => {
+                tab.classList.remove('active', 'text-white');
+                tab.classList.add('text-titanium-grey');
+            });
+
+            // Hide all content sections
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Activate clicked tab
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            activeTab.classList.add('active', 'text-white');
+            activeTab.classList.remove('text-titanium-grey');
+
+            // Show corresponding content
+            const activeContent = document.getElementById(`content-${tabId}`);
+            activeContent.classList.remove('hidden');
+            activeContent.classList.add('block');
+        }
+
+        // Add tailwind keyframes for fade in manually via JS injection or inline style
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
